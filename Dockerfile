@@ -10,6 +10,9 @@ RUN touch /var/www/html ; chmod g+rw /var/www/html ; chgrp root /var/www/html
 RUN touch /etc/passwd ; chmod g+rw /etc/passwd ; chgrp root /etc/passwd 
 
 RUN touch  /etc/group ; chmod g+rw  /etc/group ; chgrp root  /etc/group 
+
+#Specify the user with UID
+USER 1001
     
 
 EXPOSE 8080

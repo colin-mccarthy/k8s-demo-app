@@ -11,6 +11,8 @@ RUN touch /etc/passwd ; chmod g+rw /etc/passwd ; chgrp root /etc/passwd
 
 RUN touch  /etc/group ; chmod g+rw  /etc/group ; chgrp root  /etc/group 
 
+RUN setcap cap_net_bind_service=-ep /usr/sbin/httpd
+
 #Specify the user with UID
 USER 1001
     

@@ -6,7 +6,7 @@ COPY src/ /var/www/html
 RUN mkdir -m 0775 -p /var/www/html ; chmod -R g+rwx /var/www/html  ; chgrp -R root /var/www/html 
 
 # add capacity management library
-RUN  dnf install --no-cache libcap=2.25-r1 && \
+RUN  yum install --no-cache libcap=2.25-r1 && \
   # chown apache working directory
   chown -hR www-data:www-data /usr/local/apache2/ && \
   # Set capability to bind privileged ports as non-root user for httpd

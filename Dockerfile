@@ -5,13 +5,12 @@ COPY src/ /var/www/html
 # are writeable by the root group.
 RUN mkdir -m 0775 -p /var/www/html ; chmod -R g+rwx /var/www/html  ; chgrp -R root /var/www/html 
 
-RUN touch /var/www/html ; chmod g+rw /var/www/html ; chgrp root /var/www/html 
-
-RUN touch /etc/passwd ; chmod g+rw /etc/passwd ; chgrp root /etc/passwd 
-
-RUN touch  /etc/group ; chmod g+rw  /etc/group ; chgrp root  /etc/group 
-
-RUN setcap cap_net_bind_service=-ep /usr/sbin/httpd
+# add capacity management library
+RUN apk add --no-cache libcap=2.25-r1 && \
+  # chown apache working directory
+  chown -hR www-data:www-data /usr/local/apache2/ && \
+  # Set capability to bind privileged ports as non-root user for httpd
+  setcap 'cap_net_bind_service=+ep' /usr/local/apache2/bin/httpd
 
 #Specify the user with UID
 USER 1001
